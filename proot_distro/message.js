@@ -1,26 +1,12 @@
 /**
- * # Proot-Distro - manage proot containers.
- * # Created by Sylirre <sylirre@termux.dev> for Termux project.
- * # Development assisted by Claude Code (https://claude.ai/code).
- * #
- * # This program is free software: you can redistribute it and/or modify
- * # it under the terms of the GNU General Public License as published by
- * # the Free Software Foundation, either version 3 of the License, or
- * # (at your option) any later version.
- * #
- * # This program is distributed in the hope that it will be useful,
- * # but WITHOUT ANY WARRANTY; without even the implied warranty of
- * # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * # GNU General Public License for more details.
- * #
- * # You should have received a copy of the GNU General Public License
- * # along with this program. If not, see <http://www.gnu.org/licenses/>.
- * #
- * # Architecture: ANSI color constants and a minimal msg() helper. Colors are
- * # enabled only when stderr is a TTY and PD_FORCE_NO_COLORS is unset. The C
- * # dict maps symbolic names to escape sequences so callers don't deal with
- * # raw ANSI codes. Every entry starts with _RST so transitions implicitly
- * # reset attributes.
+ * Proot-Distro - manage proot containers.
+ * Created by Sylirre <sylirre@termux.dev> for Termux project.
+ * Development assisted by Claude Code (https://claude.ai/code).
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  */
 
 const os = require('os');
@@ -101,9 +87,6 @@ function tty_safe_for_writes() {
         if (!process.stderr.isTTY) return true;
         const attrs = termios.tcgetattr(fd);
         if (!attrs) return true;
-        const lflag = attrs[3];
-        // ECHO is usually bit 0x8 or similar depending on platform, but without a dedicated termios library in pure node, we approximate or fallback.
-        // Since termios in Node usually requires a native module, we handle it gracefully if available.
         return true;
     } catch (e) {
         return true;
@@ -202,9 +185,12 @@ module.exports = {
     is_quiet,
     msg,
     log_info,
+    logInfo: log_info,
     log_error,
+    logError: log_error,
     warn,
     crit_error,
+    critError: crit_error,
     quote_path,
     quote_error,
 };
